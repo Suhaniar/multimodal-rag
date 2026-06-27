@@ -1,0 +1,17 @@
+[
+  {
+    "question": "What was the revenue in Q1?",
+    "expected_answer": "$2.5M",
+    "relevant_source": "financial_report.pdf"
+  },
+  {
+    "question": "OCR test example",
+    "expected_answer": "N/A",
+    "relevant_source": "dummy.pdf",
+    "ocr_test": {
+      "file_path": "scanned_document.pdf",
+      "page": 1,
+      "ground_truth_text": "This is a test page for OCR evaluation.\nThe ground truth text should match exactly.\nDeepSeek\u2011OCR should extract this line without errors.\nExpected exact text from the page."
+    }
+  }
+]

@@ -1,0 +1,144 @@
+[
+  {
+    "id": 1,
+    "name": "Health Check",
+    "endpoint": "/health",
+    "method": "GET",
+    "type": "system",
+    "validation": "status_ok"
+  },
+  {
+    "id": 2,
+    "name": "Single PDF Ingestion",
+    "endpoint": "/ingest",
+    "method": "POST",
+    "file": "financial_report.pdf",
+    "type": "ingestion",
+    "expected_fields": ["documents_indexed", "modalities"]
+  },
+  {
+    "id": 3,
+    "name": "Multi-file Ingestion",
+    "endpoint": "/ingest",
+    "method": "POST",
+    "files": [
+      "sample_text.pdf",
+      "dummy.pdf"
+    ],
+    "type": "ingestion"
+  },
+  {
+    "id": 4,
+    "name": "PDF Revenue Query",
+    "question": "What is Q1 revenue?",
+    "expected_contains": "2.5",
+    "type": "pdf_qa"
+  },
+  {
+    "id": 5,
+    "name": "Revenue Trend Reasoning",
+    "question": "Did revenue increase over time?",
+    "expected_contains": "yes",
+    "type": "reasoning"
+  },
+  {
+    "id": 6,
+    "name": "OCR Invoice Extraction",
+    "question": "What is the invoice amount?",
+    "file": "invoice.png",
+    "expected_contains": "1234",
+    "type": "ocr"
+  },
+  {
+    "id": 7,
+    "name": "Scanned PDF OCR",
+    "question": "What is the account number?",
+    "type": "ocr_pdf"
+  },
+  {
+    "id": 8,
+    "name": "Chart Understanding",
+    "question": "Explain sales trend over time",
+    "type": "chart_reasoning"
+  },
+  {
+    "id": 9,
+    "name": "Table Highest Value",
+    "question": "Which quarter has highest revenue?",
+    "expected_contains": "Q4",
+    "type": "table"
+  },
+  {
+    "id": 10,
+    "name": "Semantic Retrieval",
+    "question": "Vacation policy",
+    "type": "semantic_search"
+  },
+  {
+    "id": 11,
+    "name": "Keyword Retrieval",
+    "question": "INV-28391",
+    "type": "bm25"
+  },
+  {
+    "id": 12,
+    "name": "Hybrid Retrieval",
+    "question": "Explain reimbursement process for employee 1045",
+    "type": "hybrid"
+  },
+  {
+    "id": 13,
+    "name": "Cross Encoder Check",
+    "endpoint": "/debug/retrieve",
+    "question": "Explain leave policy",
+    "type": "reranking"
+  },
+  {
+    "id": 14,
+    "name": "Source Attribution",
+    "question": "What is maternity leave policy?",
+    "expected_fields": ["sources"],
+    "type": "grounded_qa"
+  },
+  {
+    "id": 15,
+    "name": "Hallucination Test",
+    "question": "Who is Iron Man?",
+    "expect_grounded": false,
+    "type": "negative"
+  },
+  {
+    "id": 16,
+    "name": "Heading Hierarchy Test",
+    "question": "Explain Section 2 of policy",
+    "type": "structure"
+  },
+  {
+    "id": 17,
+    "name": "Delete File Test",
+    "endpoint": "/delete",
+    "method": "DELETE",
+    "file": "financial_report.pdf",
+    "type": "delete"
+  },
+  {
+    "id": 18,
+    "name": "Persistence Check",
+    "endpoint": "/health",
+    "type": "persistence"
+  },
+  {
+    "id": 19,
+    "name": "Unsupported File Upload",
+    "file": "music.mp3",
+    "expect_error": true,
+    "type": "validation"
+  },
+  {
+    "id": 20,
+    "name": "Empty File Upload",
+    "file": "empty.pdf",
+    "expect_error": true,
+    "type": "validation"
+  }
+]

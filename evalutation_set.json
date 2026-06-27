@@ -1,0 +1,17 @@
+[
+  {
+    "question": "What was the total revenue in Q1?",
+    "expected_answer": "$2.5M",
+    "relevant_source": "financial_report.pdf"
+  },
+  {
+    "question": "What is the main ingredient in the recipe?",
+    "expected_answer": "tomatoes",
+    "relevant_source": "recipe.docx",
+    "ocr_test": {
+      "file_path": "scanned_recipe.pdf",
+      "page": 1,
+      "ground_truth_text": "Add three tomatoes and simmer."
+    }
+  }
+]

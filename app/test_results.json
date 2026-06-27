@@ -1,0 +1,1558 @@
+[
+  {
+    "id": 1,
+    "name": "Health Check",
+    "type": "system",
+    "status": "PASS",
+    "response": {
+      "status": "ok",
+      "llm": "llama3.2",
+      "ocr_model": "deepseek-ocr:latest",
+      "ollama": "ok",
+      "indexed_files": [
+        {
+          "name": "financial_report.pdf",
+          "preview": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1\n\nQuarter | "
+        },
+        {
+          "name": "scanned_document.pdf",
+          "preview": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page."
+        }
+      ],
+      "index_ready": true,
+      "bm25_ready": true,
+      "reranker_ready": true,
+      "supported_extensions": [
+        ".bmp",
+        ".csv",
+        ".docx",
+        ".jpeg",
+        ".jpg",
+        ".md",
+        ".pdf",
+        ".png",
+        ".pptx",
+        ".tif",
+        ".tiff",
+        ".txt",
+        ".webp"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Single PDF Ingestion",
+    "type": "ingestion",
+    "status": "FAIL",
+    "error": "[Errno 2] No such file or directory: 'financial_report.pdf'"
+  },
+  {
+    "id": 3,
+    "name": "Multi-file Ingestion",
+    "type": "ingestion",
+    "status": "SUCCESS",
+  "message": "Files added successfully.",
+  "files": [
+    "sample_text.pdf",
+    "dummy.pdf"
+  ],
+  "documents_indexed": 8,
+  "modalities": [
+    "ocr",
+    "text"
+  ],
+  "total_vectors": 15,
+  "indexed_files": [
+    "scanned_document.pdf",
+    "financial_report.pdf",
+    "sample_text.pdf",
+    "dummy.pdf"
+  ],
+  "extraction_preview": "Quarterly revenue: Q1=10M, Q2=12M, Q3=15M, Q4=18M\n\n\\ |Immediate Mode | \\ | - | \\ |Query: | Quarterly revenue: Q1=10M, Q2=12M, Q3=15M, Q4=18M\n\nQuarterly revenue: Q1=10M, Q2=12M, Q3=15M, Q4=18M\n\n\\ |Imme\n\nThis is a dummy PDF used as a placeholder.\n\n\\ |\\ Im_start This is a dummy PDF used as a placeholder. \\ |\\ Im_end\n\nThis is a dummy PDF used as a placeholder.\n\n\\ |\\ Im_start This is a dummy PDF used a",
+  "ingestion_time_seconds": 131.88
+},
+  {
+    "id": 4,
+    "name": "PDF Revenue Query",
+    "type": "pdf_qa",
+    "answer": "Q1 revenue is $2.5M.",
+    "grounded": true,
+    "latency": 15.668,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "Q1 revenue is $2.5M.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.7948939317356648,
+          "source": "financial_report.pdf",
+          "modality": "table",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.34607874751091006,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.7948939317356648,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.34607874751091006,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "name": "Revenue Trend Reasoning",
+    "type": "reasoning",
+    "answer": "Based on the provided context, to answer whether revenue increased over time, we need to analyze the values of each quarter.\n\nLooking at the table:\n\n- Q1 had $2.5M in revenue\n- Q2 had $3.1M in revenue (an increase of $0.6M from Q1)\n- Q3 had $3.8M in revenue (an increase of $0.7M from Q2)\n- Q4 had $4.2M in revenue (an increase of $0.4M from Q3)\n\nSince all values show an increase over the previous quarter, the answer is: Yes, revenue did increase over time.",
+    "grounded": true,
+    "latency": 3.547,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "Based on the provided context, to answer whether revenue increased over time, we need to analyze the values of each quarter.\n\nLooking at the table:\n\n- Q1 had $2.5M in revenue\n- Q2 had $3.1M in revenue (an increase of $0.6M from Q1)\n- Q3 had $3.8M in revenue (an increase of $0.7M from Q2)\n- Q4 had $4.2M in revenue (an increase of $0.4M from Q3)\n\nSince all values show an increase over the previous quarter, the answer is: Yes, revenue did increase over time.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.899999994635582,
+          "source": "financial_report.pdf",
+          "modality": "table",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.2133857160806656,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.899999994635582,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.2133857160806656,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "name": "OCR Invoice Extraction",
+    "type": "ocr",
+    "answer": "I could not find this in the indexed documents.",
+    "grounded": true,
+    "latency": 0.979,
+    "status": "FAIL",
+    "response": {
+      "llama_answer": "I could not find this in the indexed documents.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.764999994635582,
+          "source": "financial_report.pdf",
+          "modality": "text",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.40730890035629275,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.764999994635582,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.40730890035629275,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "name": "Scanned PDF OCR",
+    "type": "ocr_pdf",
+    "answer": "I could not find any information about an \"account number\" in the provided context.",
+    "grounded": true,
+    "latency": 0.996,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "I could not find any information about an \"account number\" in the provided context.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.7460582077503205,
+          "source": "financial_report.pdf",
+          "modality": "text",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.45407899618148806,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.7460582077503205,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.45407899618148806,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "name": "Chart Understanding",
+    "type": "chart_reasoning",
+    "answer": "The sales revenue increased over time, with Q2 showing an increase of $0.6M ($3.1M - $2.5M) compared to Q1, followed by a further increase of $0.7M ($3.8M - $3.1M) in Q3, and then a significant jump of $0.4M ($4.2M - $3.8M) in Q4.",
+    "grounded": true,
+    "latency": 2.489,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "The sales revenue increased over time, with Q2 showing an increase of $0.6M ($3.1M - $2.5M) compared to Q1, followed by a further increase of $0.7M ($3.8M - $3.1M) in Q3, and then a significant jump of $0.4M ($4.2M - $3.8M) in Q4.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.899999994635582,
+          "source": "financial_report.pdf",
+          "modality": "table",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.25664082169532776,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.899999994635582,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.25664082169532776,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "name": "Table Highest Value",
+    "type": "table",
+    "answer": "Q4 with a revenue of $4.2M has the highest revenue.",
+    "grounded": true,
+    "latency": 0.952,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "Q4 with a revenue of $4.2M has the highest revenue.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.8897778704655803,
+          "source": "financial_report.pdf",
+          "modality": "table",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.1989828497171402,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.8897778704655803,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.1989828497171402,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "name": "Semantic Retrieval",
+    "type": "semantic_search",
+    "answer": "$3.8M",
+    "grounded": true,
+    "latency": 0.727,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "$3.8M",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": null,
+          "source": "financial_report.pdf",
+          "modality": "table",
+          "page": 1,
+          "metadata": {
+            "document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "parent_document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "chunk_id": "71409f06-756c-41d1-a4e9-ff62dad358d3_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:32:57.351040",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": null,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": null,
+          "metadata": {
+            "document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "parent_document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "chunk_id": "71409f06-756c-41d1-a4e9-ff62dad358d3_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:32:57.351040",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": null,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "name": "Keyword Retrieval",
+    "type": "bm25",
+    "answer": "I could not find any relevant information about the \"INV-28391\" in the provided context. The document only discusses the financial report of Q1 2025 and its revenue, but does not mention any reference or code with the title \"INV-28391\".",
+    "grounded": true,
+    "latency": 1.952,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "I could not find any relevant information about the \"INV-28391\" in the provided context. The document only discusses the financial report of Q1 2025 and its revenue, but does not mention any reference or code with the title \"INV-28391\".",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": null,
+          "source": "financial_report.pdf",
+          "modality": "text",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": null,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": null,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": null,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "name": "Hybrid Retrieval",
+    "type": "hybrid",
+    "answer": "I could not find any information on reimbursement processes or specific details related to employee 1045 in the provided context. The context only contains a table with revenue data for each quarter, but no information about employees or their reimbursements is mentioned.",
+    "grounded": true,
+    "latency": 1.765,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "I could not find any information on reimbursement processes or specific details related to employee 1045 in the provided context. The context only contains a table with revenue data for each quarter, but no information about employees or their reimbursements is mentioned.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.764999994635582,
+          "source": "financial_report.pdf",
+          "modality": "table",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.42445328235626223,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": 0.764999994635582,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.486974",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.42445328235626223,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "name": "Cross Encoder Check",
+    "type": "reranking",
+    "answer": "I could not find any information on leave policies in the provided context, as it only contains revenue data and does not mention anything about leave policies or employee benefits. The answer to \"Explain leave policy\" is not present in the indexed documents.",
+    "grounded": true,
+    "latency": 1.622,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "I could not find any information on leave policies in the provided context, as it only contains revenue data and does not mention anything about leave policies or employee benefits. The answer to \"Explain leave policy\" is not present in the indexed documents.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": null,
+          "source": "financial_report.pdf",
+          "modality": "table",
+          "page": 1,
+          "metadata": {
+            "document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "parent_document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "chunk_id": "71409f06-756c-41d1-a4e9-ff62dad358d3_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:32:57.351040",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": null,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Quarter | Revenue (USD) Q1 | $2.5M Q2 | $3.1M Q3 | $3.8M Q4 | $4.2M",
+          "score": null,
+          "metadata": {
+            "document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "parent_document_id": "71409f06-756c-41d1-a4e9-ff62dad358d3",
+            "chunk_id": "71409f06-756c-41d1-a4e9-ff62dad358d3_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "table",
+            "kind": "pdf_table",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:32:57.351040",
+            "table_index": 1,
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": null,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "name": "Source Attribution",
+    "type": "grounded_qa",
+    "answer": "I could not find this in the indexed documents.",
+    "grounded": true,
+    "latency": 0.928,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "I could not find this in the indexed documents.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.762258991599083,
+          "source": "financial_report.pdf",
+          "modality": "text",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.486426854133606,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.762258991599083,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.486426854133606,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "name": "Hallucination Test",
+    "type": "negative",
+    "answer": "I could not find any information about Iron Man in the provided context.",
+    "grounded": true,
+    "latency": 0.959,
+    "status": "FAIL",
+    "response": {
+      "llama_answer": "I could not find any information about Iron Man in the provided context.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.7394117206335068,
+          "source": "financial_report.pdf",
+          "modality": "text",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.49999999403953554,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.7394117206335068,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.49999999403953554,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "name": "Heading Hierarchy Test",
+    "type": "structure",
+    "answer": "I could not find this in the indexed documents.",
+    "grounded": true,
+    "latency": 0.895,
+    "status": "PASS",
+    "response": {
+      "llama_answer": "I could not find this in the indexed documents.",
+      "model_used": "llama3.2",
+      "grounded": true,
+      "retrieved_chunks": [
+        {
+          "chunk": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.8693686848878861,
+          "source": "financial_report.pdf",
+          "modality": "text",
+          "page": 1,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "chunk": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.33066704869270325,
+          "source": "scanned_document.pdf",
+          "modality": "ocr",
+          "page": 1,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ],
+      "sources": [
+        {
+          "content": "Financial Report Q1 2025 Consolidated Revenue Quarter Revenue (USD) Q1 $2.5M Q2 $3.1M Q3 $3.8M Q4 $4.2M Note: Revenue increased 68% year over year. Q1 performance exceeded guidance. Page 1",
+          "score": 0.8693686848878861,
+          "metadata": {
+            "document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "parent_document_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93",
+            "chunk_id": "e37a31fd-00e2-47e7-94d3-92973d6cde93_chunk_0",
+            "source": "financial_report.pdf",
+            "file_type": "pdf",
+            "modality": "text",
+            "kind": "pdf_page_text",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "Q1",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:31:26.403948",
+            "chunk_index": 0
+          }
+        },
+        {
+          "content": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page.",
+          "score": 0.33066704869270325,
+          "metadata": {
+            "document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "parent_document_id": "2a564a33-5ecf-4f48-9445-d92079991ee5",
+            "chunk_id": "2a564a33-5ecf-4f48-9445-d92079991ee5_chunk_0",
+            "source": "scanned_document.pdf",
+            "file_type": "pdf",
+            "modality": "ocr",
+            "kind": "pdf_page_ocr",
+            "page": 1,
+            "parent_page": 1,
+            "slide": null,
+            "section": "",
+            "subsection": "",
+            "paragraph_num": null,
+            "created_at": "2026-06-26T14:34:14.760937",
+            "chunk_index": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 17,
+    "name": "Delete File Test",
+    "type": "delete",
+    "status": "PASS",
+    "response": {
+      "message": "Deleted 1 file(s). Index rebuilt.",
+      "deleted": [
+        "financial_report.pdf"
+      ],
+      "not_found": [],
+      "remaining_files": [
+        "scanned_document.pdf"
+      ]
+    }
+  },
+  {
+    "id": 18,
+    "name": "Persistence Check",
+    "type": "persistence",
+    "status": "PASS",
+    "response": {
+      "status": "ok",
+      "llm": "llama3.2",
+      "ocr_model": "deepseek-ocr:latest",
+      "ollama": "ok",
+      "indexed_files": [
+        {
+          "name": "scanned_document.pdf",
+          "preview": "\\ |Immediate|> user This is a test page for OCR evaluation. The ground truth text should match exactly. DeepSeek OCR should extract this line without errors. Expected exact text from the page."
+        }
+      ],
+      "index_ready": true,
+      "bm25_ready": true,
+      "reranker_ready": true,
+      "supported_extensions": [
+        ".bmp",
+        ".csv",
+        ".docx",
+        ".jpeg",
+        ".jpg",
+        ".md",
+        ".pdf",
+        ".png",
+        ".pptx",
+        ".tif",
+        ".tiff",
+        ".txt",
+        ".webp"
+      ]
+    }
+  },
+  {
+    "id": 19,
+    "name": "Unsupported File Upload",
+    "type": "validation",
+    "status": "FAIL",
+    "error": "'question'"
+  },
+  {
+    "id": 20,
+    "name": "Empty File Upload",
+    "type": "validation",
+    "status": "FAIL",
+    "error": "'question'"
+  }
+]

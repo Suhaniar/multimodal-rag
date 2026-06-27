@@ -1,0 +1,5 @@
+AI Project Notes
+
+The chatbot uses FAISS for vector search.
+Embeddings are generated using MiniLM.
+Ollama runs llama3.2 locally.
